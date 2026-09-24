@@ -39,12 +39,22 @@ To add one:
    `stellar-xdr` 28.0.0 crate against the CAP-0083 `StellarValue` type",
    not "looks right".
 3. **Define a stable ID.** Follow `p<protocol>-<surface>-<slug>` (e.g.
-   `p28-xdr-cap85-external-ref-roundtrip`). IDs are lowercase, unique
-   across the *entire* repository (the loader validates this across all
-   `*.toml` files under a given `--fixtures-dir`, not just one file), and
-   never renamed just because an implementation detail changed — if the
-   semantic assertion itself changes, add a new fixture ID instead of
-   silently repurposing an old one.
+   `p28-xdr-cap85-external-ref-roundtrip`) — but note that this shape is a
+   convention, not a machine-enforced requirement. The machine-checked
+   constraint on `id` in
+   [`schemas/fixture-v1.schema.json`](schemas/fixture-v1.schema.json) is
+   only the pattern `^[a-z0-9][a-z0-9-]*$` — lowercase alphanumeric with
+   hyphens, starting with an alphanumeric character. That pattern is both
+   looser than the convention (the `p<protocol>-` shape is not required)
+   and stricter than the prose suggests (uppercase and underscores are
+   rejected regardless of shape). What the tools do enforce beyond the
+   pattern: `tools/validate/validate.py` separately requires IDs to be
+   lowercase, and unique across the *entire* repository (the loader
+   validates this across all `*.toml` files under a given
+   `--fixtures-dir`, not just one file). IDs are also never renamed just
+   because an implementation detail changed — if the semantic assertion
+   itself changes, add a new fixture ID instead of silently repurposing
+   an old one.
 4. **Create deterministic input.** No fixture may depend on ledger state
    that changes between runs (a current ledger sequence, "the latest
    anything") unless the assertion is explicitly scoped as a live-network
@@ -56,8 +66,45 @@ To add one:
 7. **Add/update documentation**: the relevant `docs/protocol-NN.md` table
    and, if you added a new CAP or surface, the pack's `README.md`.
 8. **Run the repository tests**: `python3 -m unittest discover tests`.
+   If you are populating a pack that has never had fixtures before, see
+   "Pack-level test files" below — the pack also needs its own test file.
 
 > **Note**: Do not add a `manifest.toml` or similar discovery/enumeration file. The loader recursively treats every `*.toml` file under `--fixtures-dir` as a fixture, so a manifest `.toml` file would be mis-parsed as a malformed fixture and fail the run (see [README.md](README.md#repository-relationship)).
+
+## Pack-level test files
+
+Every populated protocol pack ships with a dedicated pack-level test
+file: `tests/test_pack_protocol_NN.py`, alongside the generic
+`tests/test_validate.py`. See
+[`tests/test_pack_protocol_28.py`](tests/test_pack_protocol_28.py) for
+the existing example — it is a structural/offline suite (no network, no
+fixture execution) that asserts the pack matches its own documented
+inventory, for example:
+
+- every fixture in `protocol-NN/` targets `protocol = NN` and has a
+  `source_reference`;
+- the set of fixture IDs per surface matches the pack's documented
+  inventory exactly;
+- fixture IDs referenced in the `## [Unreleased]` section of
+  `CHANGELOG.md` still exist (or are explicitly marked removed/deprecated);
+- documented invariants of the pack hold (e.g. protocol-28's "no fixture
+  claims CAP-0086" gap guard, and protocol-27's "pack is still empty"
+  policy check).
+
+This exists because `tests/test_validate.py` only proves the *generic*
+format rules — it cannot know which fixtures a given pack is supposed
+to contain. The pack-level file is what keeps a pack's documentation
+(`docs/protocol-NN.md`, the pack's `README.md`, `CHANGELOG.md`) and its
+actual fixture directory from drifting apart.
+
+**When you populate a new protocol pack** (e.g. `protocol-27/`, which
+[`protocol-27/README.md`](protocol-27/README.md) anticipates as future
+work), add the equivalent `tests/test_pack_protocol_NN.py` in the same
+change, modeled on the protocol-28 file: replace its `EXPECTED_IDS_BY_SURFACE`
+inventory and pack-specific invariants with your pack's verified ones,
+and delete invariants that only make sense for an empty pack. CI already
+discovers it automatically (`python3 -m unittest discover tests`), so no
+workflow changes are needed.
 
 No fixture should be merged solely because it makes some consumer's CI
 green. If you cannot pin down the exact expected wire representation or
