@@ -56,6 +56,14 @@ To add one:
 7. **Add/update documentation**: the relevant `docs/protocol-NN.md` table
    and, if you added a new CAP or surface, the pack's `README.md`.
 8. **Run the repository tests**: `python3 -m unittest discover tests`.
+9. **Add a pack-level test when populating a new protocol pack.** In addition
+   to the generic validator tests, create an equivalent
+   `tests/test_pack_protocol_NN.py` for the new pack. Use
+   `tests/test_pack_protocol_28.py` as the template: the pack-level test
+   should verify that the pack is structurally valid, that every fixture
+   targets protocol `NN`, and that the fixture inventory matches the IDs
+   documented for that pack. This keeps future pack additions from relying
+   only on the generic coverage in `tests/test_validate.py`.
 
 > **Note**: Do not add a `manifest.toml` or similar discovery/enumeration file. The loader recursively treats every `*.toml` file under `--fixtures-dir` as a fixture, so a manifest `.toml` file would be mis-parsed as a malformed fixture and fail the run (see [README.md](README.md#repository-relationship)).
 
