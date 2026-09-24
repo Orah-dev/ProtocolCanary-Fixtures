@@ -26,6 +26,8 @@ To add one:
 - **Document & test it** — update the relevant `docs/protocol-NN.md` table
   (and the pack's `README.md` for a new CAP or surface), then run
   `python3 -m unittest discover tests`.
+- **Add a pack-level test** — when populating a new protocol pack, add an
+  equivalent `tests/test_pack_protocol_NN.py` file for that pack.
 
 1. **Identify the upstream behavior.** Read the CAP text, the upstream XDR
    definition, the upstream implementation, or the official release/API
@@ -55,7 +57,15 @@ To add one:
 6. **Validate the fixture**: `python3 tools/validate/validate.py`.
 7. **Add/update documentation**: the relevant `docs/protocol-NN.md` table
    and, if you added a new CAP or surface, the pack's `README.md`.
-8. **Run the repository tests**: `python3 -m unittest discover tests`.
+8. **Add the pack-level test.** When populating a new protocol pack, add an
+   equivalent `tests/test_pack_protocol_NN.py` file. Follow
+   `tests/test_pack_protocol_28.py` as the pattern: check that the pack's
+   fixture inventory matches its documented IDs, verify every fixture targets
+   that protocol, and include the pack-specific invariants and changelog
+   checks appropriate to the new pack. The generic
+   `tests/test_validate.py` coverage is not a substitute for this dedicated
+   pack-level test.
+9. **Run the repository tests**: `python3 -m unittest discover tests`.
 
 > **Note**: Do not add a `manifest.toml` or similar discovery/enumeration file. The loader recursively treats every `*.toml` file under `--fixtures-dir` as a fixture, so a manifest `.toml` file would be mis-parsed as a malformed fixture and fail the run (see [README.md](README.md#repository-relationship)).
 
