@@ -39,12 +39,22 @@ To add one:
    `stellar-xdr` 28.0.0 crate against the CAP-0083 `StellarValue` type",
    not "looks right".
 3. **Define a stable ID.** Follow `p<protocol>-<surface>-<slug>` (e.g.
-   `p28-xdr-cap85-external-ref-roundtrip`). IDs are lowercase, unique
-   across the *entire* repository (the loader validates this across all
-   `*.toml` files under a given `--fixtures-dir`, not just one file), and
-   never renamed just because an implementation detail changed — if the
-   semantic assertion itself changes, add a new fixture ID instead of
-   silently repurposing an old one.
+   `p28-xdr-cap85-external-ref-roundtrip`) — but note that this shape is a
+   convention, not a machine-enforced requirement. The machine-checked
+   constraint on `id` in
+   [`schemas/fixture-v1.schema.json`](schemas/fixture-v1.schema.json) is
+   only the pattern `^[a-z0-9][a-z0-9-]*$` — lowercase alphanumeric with
+   hyphens, starting with an alphanumeric character. That pattern is both
+   looser than the convention (the `p<protocol>-` shape is not required)
+   and stricter than the prose suggests (uppercase and underscores are
+   rejected regardless of shape). What the tools do enforce beyond the
+   pattern: `tools/validate/validate.py` separately requires IDs to be
+   lowercase, and unique across the *entire* repository (the loader
+   validates this across all `*.toml` files under a given
+   `--fixtures-dir`, not just one file). IDs are also never renamed just
+   because an implementation detail changed — if the semantic assertion
+   itself changes, add a new fixture ID instead of silently repurposing
+   an old one.
 4. **Create deterministic input.** No fixture may depend on ledger state
    that changes between runs (a current ledger sequence, "the latest
    anything") unless the assertion is explicitly scoped as a live-network
