@@ -41,7 +41,7 @@ EXPECTED_IDS_BY_SURFACE = {
         "p28-xdr-stellar-value-signed-decode-success",
         "p28-xdr-stellar-value-signed-decode-failure",
     },
-    "rpc": {"p28-rpc-network", "p28-rpc-diff-network"},
+    "rpc": {"p28-rpc-network", "p28-rpc-diff-network", "p28-rpc-latest-ledger"},
     "soroban": {
         "p28-soroban-native-asset-name",
         "p28-soroban-sim-error-unknown-function",
