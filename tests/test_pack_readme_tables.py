@@ -93,6 +93,8 @@ def _is_separator_row(line: str) -> bool:
 
 def _link_target(cell: str) -> str | None:
     """Return the target of the first Markdown link in *cell*, if any."""
+    # Strip backticks (cells may be `` `[text](url)` `` wrapped)
+    cell = cell.replace("`", "")
     match = LINK_RE.search(cell)
     if match is None:
         return None

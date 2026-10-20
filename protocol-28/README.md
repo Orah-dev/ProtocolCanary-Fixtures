@@ -23,6 +23,7 @@ enumeration.
 |---|---|---|---|
 | [`xdr/cap-0083/p28-xdr-cap83-empty-tx-set.toml`](xdr/cap-0083/p28-xdr-cap83-empty-tx-set.toml) | xdr | CAP-0083 | A `StellarValue` using `STELLAR_VALUE_EMPTY_TX_SET` round-trips byte-for-byte. |
 | [`xdr/cap-0083/p28-xdr-cap83-empty-tx-set-malformed.toml`](xdr/cap-0083/p28-xdr-cap83-empty-tx-set-malformed.toml) | xdr | CAP-0083 | A truncated `StellarValue` using `STELLAR_VALUE_EMPTY_TX_SET` is correctly rejected, not silently accepted. |
+| [`xdr/cap-0083/p28-xdr-cap83-encode-equals.toml`](xdr/cap-0083/p28-xdr-cap83-encode-equals.toml) | xdr | CAP-0083 | A `StellarValue` using `STELLAR_VALUE_EMPTY_TX_SET` ext encodes and round-trips with encode-equals. |
 | [`xdr/cap-0085/p28-xdr-cap85-external-ref-roundtrip.toml`](xdr/cap-0085/p28-xdr-cap85-external-ref-roundtrip.toml) | xdr | CAP-0085 | A `ContractExecutable` using `CONTRACT_EXECUTABLE_EXTERNAL_REF` round-trips byte-for-byte. |
 | [`xdr/cap-0085/p28-xdr-cap85-external-ref-malformed.toml`](xdr/cap-0085/p28-xdr-cap85-external-ref-malformed.toml) | xdr | CAP-0085 | A truncated `ContractExecutable::ExternalRef` encoding is correctly rejected, not silently accepted. |
 | [`xdr/stellar-value/p28-xdr-stellar-value-basic-roundtrip.toml`](xdr/stellar-value/p28-xdr-stellar-value-basic-roundtrip.toml) | xdr | — | A `StellarValue` using the `STELLAR_VALUE_BASIC` ext arm round-trips byte-for-byte. |
@@ -33,6 +34,7 @@ enumeration.
 | [`xdr/stellar-value/p28-xdr-stellar-value-signed-decode-failure.toml`](xdr/stellar-value/p28-xdr-stellar-value-signed-decode-failure.toml) | xdr | — | A truncated `STELLAR_VALUE_SIGNED` `StellarValue` encoding is correctly rejected, not silently accepted. |
 | [`rpc/p28-rpc-network.toml`](rpc/p28-rpc-network.toml) | rpc | — | A configured RPC endpoint's `getNetwork` reports protocol 28 with a `passphrase` field. |
 | [`rpc/p28-rpc-latest-ledger.toml`](rpc/p28-rpc-latest-ledger.toml) | rpc | — | The same endpoint's `getLatestLedger` reports protocol 28, a numeric `sequence`, a string ledger `id`, and no `getNetwork`-only fields. |
+| [`rpc/p28-rpc-diff-network.toml`](rpc/p28-rpc-diff-network.toml) | rpc | — | Diff comparison of network identity between protocol versions. |
 | [`soroban/p28-soroban-native-asset-name.toml`](soroban/p28-soroban-native-asset-name.toml) | soroban | — | The full construct → `simulateTransaction` → result pipeline works against real Protocol 28 infrastructure. |
 | [`soroban/p28-soroban-sim-error-unknown-function.toml`](soroban/p28-soroban-sim-error-unknown-function.toml) | soroban | — | Invoking a function the Stellar Asset Contract does not export fails with `Error(Value, InvalidInput)` in `result.error`. |
 | [`soroban/p28-soroban-sim-error-missing-contract.toml`](soroban/p28-soroban-sim-error-missing-contract.toml) | soroban | — | A well-formed contract id with no stored instance fails with `Error(Storage, MissingValue)` rather than being treated as an empty contract. |

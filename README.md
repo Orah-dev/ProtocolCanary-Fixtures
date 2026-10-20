@@ -105,8 +105,32 @@ data is in [`upstream-matrix.json`](upstream-matrix.json).
 
 | Pack | Status | Notes |
 |---|---|---|
-| [`protocol-28/`](protocol-28/) | Active | CAP-0083, CAP-0085 (XDR); Protocol 28 RPC identity; a Soroban simulation smoke fixture. Fixture counts by surface: **4 xdr, 1 rpc, 1 soroban** (6 total). See [`docs/protocol-28.md`](docs/protocol-28.md). |
+| [`protocol-28/`](protocol-28/) | Active | CAP-0083, CAP-0085 (XDR); Protocol 28 RPC identity; a Soroban simulation smoke fixture. Fixture counts by surface: **11 xdr, 3 rpc, 5 soroban** (19 total). See [`docs/protocol-28.md`](docs/protocol-28.md). |
 | [`protocol-27/`](protocol-27/) | Not yet populated | **0 fixtures.** See [`protocol-27/README.md`](protocol-27/README.md) — fixtures are added only after their upstream behavior is independently verified, never as placeholders. |
+
+### Fixture table
+
+| Fixture | Surface | CAP |
+|---|---|---|
+| `[p28-xdr-cap83-empty-tx-set](xdr/cap-0083/p28-xdr-cap83-empty-tx-set.toml)` | xdr | CAP-0083 |
+| `[p28-xdr-cap83-empty-tx-set-malformed](xdr/cap-0083/p28-xdr-cap83-empty-tx-set-malformed.toml)` | xdr | CAP-0083 |
+| `[p28-xdr-cap83-encode-equals](xdr/cap-0083/p28-xdr-cap83-encode-equals.toml)` | xdr | CAP-0083 |
+| `[p28-xdr-cap85-external-ref-roundtrip](xdr/cap-0085/p28-xdr-cap85-external-ref-roundtrip.toml)` | xdr | CAP-0085 |
+| `[p28-xdr-cap85-external-ref-malformed](xdr/cap-0085/p28-xdr-cap85-external-ref-malformed.toml)` | xdr | CAP-0085 |
+| `[p28-xdr-stellar-value-basic-roundtrip](xdr/stellar-value/p28-xdr-stellar-value-basic-roundtrip.toml)` | xdr | — |
+| `[p28-xdr-stellar-value-basic-decode-success](xdr/stellar-value/p28-xdr-stellar-value-basic-decode-success.toml)` | xdr | — |
+| `[p28-xdr-stellar-value-basic-decode-failure](xdr/stellar-value/p28-xdr-stellar-value-basic-decode-failure.toml)` | xdr | — |
+| `[p28-xdr-stellar-value-signed-roundtrip](xdr/stellar-value/p28-xdr-stellar-value-signed-roundtrip.toml)` | xdr | — |
+| `[p28-xdr-stellar-value-signed-decode-success](xdr/stellar-value/p28-xdr-stellar-value-signed-decode-success.toml)` | xdr | — |
+| `[p28-xdr-stellar-value-signed-decode-failure](xdr/stellar-value/p28-xdr-stellar-value-signed-decode-failure.toml)` | xdr | — |
+| `[p28-rpc-network](rpc/p28-rpc-network.toml)` | rpc | — |
+| `[p28-rpc-diff-network](rpc/p28-rpc-diff-network.toml)` | rpc | — |
+| `[p28-rpc-latest-ledger](rpc/p28-rpc-latest-ledger.toml)` | rpc | — |
+| `[p28-soroban-native-asset-name](soroban/p28-soroban-native-asset-name.toml)` | soroban | — |
+| `[p28-soroban-sim-error-unknown-function](soroban/p28-soroban-sim-error-unknown-function.toml)` | soroban | — |
+| `[p28-soroban-sim-error-missing-contract](soroban/p28-soroban-sim-error-missing-contract.toml)` | soroban | — |
+| `[p28-soroban-sim-error-arg-count](soroban/p28-soroban-sim-error-arg-count.toml)` | soroban | — |
+| `[p28-soroban-sim-error-arg-type](soroban/p28-soroban-sim-error-arg-type.toml)` | soroban | — |
 
 Pack directories are named **`protocol-<N>`**, where `<N>` is the Stellar
 protocol version the pack targets: a pack for Protocol 28 is
