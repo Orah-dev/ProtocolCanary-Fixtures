@@ -1,0 +1,27 @@
+# Protocol 28 / RPC diff comparison.
+# Diff comparison of network identity between protocol versions.
+# This fixture checks that get-network RPC returns expected fields for diff rendering.
+# Reference: https://developers.stellar.org/docs/data/apis/rpc/api-reference/methods/getNetwork
+
+id = "p28-rpc-diff-network"
+protocol = 28
+surface = "rpc"
+category = "network"
+description = "getNetwork RPC response for diff comparison between protocol versions"
+source_reference = "https://developers.stellar.org/docs/data/apis/rpc/api-reference/methods/getNetwork"
+
+method = "get-network"
+
+[[assert]]
+kind = "field-exists"
+field = "protocolVersion"
+
+[[assert]]
+kind = "field-equals"
+field = "protocolVersion"
+value = 28
+
+[[assert]]
+kind = "field-type"
+field = "passphrase"
+expected_type = "string"

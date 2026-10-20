@@ -31,6 +31,7 @@ EXPECTED_IDS_BY_SURFACE = {
     "xdr": {
         "p28-xdr-cap83-empty-tx-set",
         "p28-xdr-cap83-empty-tx-set-malformed",
+        "p28-xdr-cap83-encode-equals",
         "p28-xdr-cap85-external-ref-roundtrip",
         "p28-xdr-cap85-external-ref-malformed",
         "p28-xdr-stellar-value-basic-roundtrip",
@@ -40,7 +41,7 @@ EXPECTED_IDS_BY_SURFACE = {
         "p28-xdr-stellar-value-signed-decode-success",
         "p28-xdr-stellar-value-signed-decode-failure",
     },
-    "rpc": {"p28-rpc-network", "p28-rpc-latest-ledger"},
+    "rpc": {"p28-rpc-network", "p28-rpc-diff-network"},
     "soroban": {
         "p28-soroban-native-asset-name",
         "p28-soroban-sim-error-unknown-function",
